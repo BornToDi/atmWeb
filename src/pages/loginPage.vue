@@ -4,7 +4,7 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAD5D8C_qP7csjpxhjETCIRmclhBdpO_8HrA&usqp=CAU" alt="">
     </div>
 
-    <div class="border-2 border-rose-500 w-[600px] my-5 rounded-lg bg-gray-50 shadow-4">
+    <div class="border-2 border-rose-500 w-[400px] md:w-[600px]  my-5 rounded-lg bg-gray-50 shadow-4">
       <div class="text-3xl text-bold text-rose-500 text-center pt-10"> Log-in</div>
       <div class="px-10 py-3 text-lg  text-slate-700">
         <q-input class="py-2" color="rose-400" v-model="text" label="Name" />
