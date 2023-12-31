@@ -15,10 +15,11 @@
           ATM Tester
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="mr-20"> <q-btn flat round color="white" icon="light" /></div>
       </q-toolbar>
     </q-header>
 
+    
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
