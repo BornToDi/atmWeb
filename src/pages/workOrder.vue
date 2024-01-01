@@ -1,91 +1,31 @@
-<!-- src/views/YourPage.vue -->
 <template>
   <div class="h-screen bg-gray-100">
     <div class="mx-5 py-5">
       <div class="flex gap-1">
         <q-icon name="home" color="blue-600" size="32px" />
-        <h4 class="text-[20px] text-bold text-blue-600">Hardware Components</h4>
+        <h4 class="text-[20px] text-bold text-blue-600">All Work Order</h4>
       </div>
-      <div class="bg-white border-2 rounded-lg border-blue-600 px-3 py-3">
-        <div class="row">
-          <div class="col-4 text-lg text-bold pt-3 flex">
-            <q-icon name="list" color="blue-600" size="25px"></q-icon>
-            <div >list</div>
-          </div>
-          <div class="col-8 text-lg text-bold ">
-            <div class="flex">
-              <q-input
-                v-if="showInput"
-                height="2px"
-                outlined
-                v-model="textS"
-                label="Label"
-                counter
-                maxlength="12"
-                :dense="dense"
-                class="thin-input"
-              >
-                <template v-slot:append>
-                  <q-icon
-                    v-if="text !== ''"
-                    name="close"
-                    @click="text = ''"
-                    class="cursor-pointer"
-                  />
-                </template>
-
-                <template v-slot:hint> Field hint </template>
-              </q-input>
-              <q-icon
-                name="search"
-                size="25px"
-                class="cursor-pointer pt-3 "
-                @click="showInput = true"
-              />
-
-
-            </div>
-          </div>
-        </div>
-
-        <!--table part-->
-
-        <table class="table-fixed w-full pt-5">
-          <thead>
-            <tr>
-              <th class="w-1/6 px-3 py-2">Pid</th>
-              <th class="w-4/6 px-3 py-2">Name</th>
-              <th class="w-1/6 px-3 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Loop through your forms array to populate the table rows -->
-            <tr v-for="(form, index) in forms" :key="index">
-              <td class="border px-3 py-2">{{ form.pid }}</td>
-              <td class="border px-3 py-2">{{ form.text }}</td>
-              <td class="border px-3 py-2">
-                <q-icon
-                  class="cursor-pointer border rounded border-red-500"
-                  name="delete"
-                  size="2em"
-                  color="red"
-                  @click="deleteForm(index)"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!--table part finish-->
-        <div class="text-center">
-          <q-btn
-            @click="addComponent = true"
-            outline
-            rounded
-            color="primary"
-            label="Add Components"
-          />
-        </div>
-      </div>
+      <!--table-->
+      <div>
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b">Work Order</th>
+          <th class="py-2 px-4 border-b">Type</th>
+          <th class="py-2 px-4 border-b">Report</th>
+          <th class="py-2 px-4 border-b">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, index) in tableData" :key="index">
+          <td class="py-2 px-4 border-b">{{ row.workorder }}</td>
+          <td class="py-2 px-4 border-b">{{ row.type }}</td>
+          <td class="py-2 px-4 border-b">{{ row.report }}</td>
+          <td class="py-2 px-4 border-b">{{ row.action }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
     </div>
     <!--footer part-->
     <q-footer elevated>
@@ -182,109 +122,38 @@
     </q-footer>
     <!--footer part done-->
   </div>
-
-  <!--popup here-->
-  <q-dialog v-model="addComponent">
-    <q-card class="h-[500px] w-[400px]">
-      <div class="text-gray-500 flex gap-2 text-lg px-5 pt-5">
-        <div>Fillup form</div>
-        <q-icon name="assignment" size="25px" color="gray-600" />
-      </div>
-
-      <div
-        v-for="(form, index) in forms"
-        :key="index"
-        class="border-2 my-3 text-blue px-2 py-2"
-      >
-        <q-input outlined v-model="form.text" label="Component Name" />
-        <div class="row gap-2">
-          <q-input class="col pt-3" outlined v-model="form.pid" label="PID" />
-          <q-input
-            class="col pt-3"
-            outlined
-            v-model="form.model"
-            label="Model"
-          />
-          <q-icon
-            class="cursor-pointer mt-5 border rounded border-red-500"
-            name="delete"
-            size="2em"
-            color="red"
-            @click="deleteForm(index)"
-          />
-        </div>
-      </div>
-
-      <div class="px-5 py-5 flex gap-5 row">
-        <q-btn
-          class="col"
-          unelevated
-          color="primary"
-          label="Save"
-          @click="saveValues"
-        />
-        <q-btn
-          class="col"
-          unelevated
-          color="primary"
-          @click="addMore"
-          label="Add More"
-        />
-      </div>
-    </q-card>
-  </q-dialog>
 </template>
-
 <script>
-import { ref } from "vue";
-
 export default {
-  setup() {
-    return {
-      text: ref(""),
-      ph: ref(""),
-      dense: ref(false),
-    };
-  },
   data() {
     return {
-      forms: [], // Initial form section
-      addComponent: ref(false),
-      textS: '',
-      showInput: false,
-
+      tableData: [
+        {
+          workorder: "123",
+          type: "Maintenance",
+          report: "Pending",
+          action: "View",
+        },
+        {
+          workorder: "456",
+          type: "Repair",
+          report: "Completed",
+          action: "Edit",
+        },
+        // Add more rows as needed
+      ],
+      columns: [
+        {
+          name: "workorder",
+          label: "Work Order",
+          align: "left",
+          field: "workorder",
+        },
+        { name: "type", label: "Type", align: "left", field: "type" },
+        { name: "report", label: "Report", align: "left", field: "report" },
+        { name: "action", label: "Action", align: "left", field: "action" },
+      ],
     };
-  },
-  methods: {
-    toggleDialog() {
-      this.addComponent = !this.addComponent;
-    },
-    addMore(index) {
-      // Clone the form section and add it to the array
-      this.forms.splice(index + 1, 0, { text: "", pid: "", model: "" });
-    },
-    deleteForm(index) {
-      // Remove the form section at the specified index
-      this.forms.splice(index, 1);
-    },
-    saveValues() {
-      this.forms.push({
-        value: this.text,
-        isComplete: false,
-      });
-      this.text = null;
-
-      // Close the dialog after saving
-      this.addComponent = false;
-    },
   },
 };
 </script>
-
-<style scoped>
-/* Add custom styling for the thin input */
-.thin-input {
-  padding-top: 1px; /* Adjust the padding as needed */
-   /* Adjust the padding as needed */
-}
-</style>

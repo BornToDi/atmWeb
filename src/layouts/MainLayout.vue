@@ -15,11 +15,11 @@
           ATM Tester
         </q-toolbar-title>
 
-        <div class="mr-20"> <q-btn flat round color="white" icon="light" /></div>
+        <div class="mr-20"> <q-btn to="dashboard" flat round color="white" icon="home" /></div>
       </q-toolbar>
     </q-header>
 
-    
+
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
