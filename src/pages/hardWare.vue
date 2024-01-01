@@ -8,39 +8,72 @@
       </div>
       <div class="bg-white border-2 rounded-lg border-blue-600 px-3 py-3">
         <div class="row">
-          <div class="col-4 text-lg text-bold flex">
+          <div class="col-4 text-lg text-bold pt-3 flex">
             <q-icon name="list" color="blue-600" size="25px"></q-icon>
-            <div>list</div>
+            <div >list</div>
           </div>
-          <div class="col-8 text-lg text-bold flex">
-            <q-input
-              outlined
-              bottom-slots
-              v-model="text"
-              label="Label"
-              counter
-              maxlength="12"
-              :dense="dense"
-            >
-              <template v-slot:append>
+          <div class="col-8 text-lg text-bold ">
+            <div class="flex">
+              <q-input
+                v-if="showInput"
+                outlined
+                v-model="textS"
+                label="Label"
+                counter
+                maxlength="12"
+                :dense="dense"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    v-if="text !== ''"
+                    name="close"
+                    @click="text = ''"
+                    class="cursor-pointer"
+                  />
+                </template>
+
+                <template v-slot:hint> Field hint </template>
+              </q-input>
+              <q-icon
+                name="search"
+                size="25px"
+                class="cursor-pointer pt-3 "
+                @click="showInput = true"
+              />
+
+
+            </div>
+          </div>
+        </div>
+
+        <!--table part-->
+
+        <table class="table-fixed w-full pt-5">
+          <thead>
+            <tr>
+              <th class="w-1/6 px-3 py-2">Pid</th>
+              <th class="w-4/6 px-3 py-2">Name</th>
+              <th class="w-1/6 px-3 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop through your forms array to populate the table rows -->
+            <tr v-for="(form, index) in forms" :key="index">
+              <td class="border px-3 py-2">{{ form.pid }}</td>
+              <td class="border px-3 py-2">{{ form.text }}</td>
+              <td class="border px-3 py-2">
                 <q-icon
-                  v-if="text !== ''"
-                  name="close"
-                  @click="text = ''"
-                  class="cursor-pointer"
+                  class="cursor-pointer border rounded border-red-500"
+                  name="delete"
+                  size="2em"
+                  color="red"
+                  @click="deleteForm(index)"
                 />
-                <q-icon name="search" />
-              </template>
-
-              <template v-slot:hint> Field hint </template>
-            </q-input>
-          </div>
-        </div>
-
-        <div class="row border border-blue-400 rounded-lg my-4">
-          <div class="col-6 px-3 py-2">Components Name</div>
-          <div class="col-6 px-3 py-2">Action</div>
-        </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!--table part finish-->
         <div class="text-center">
           <q-btn
             @click="addComponent = true"
@@ -145,30 +178,56 @@
         >
       </div>
     </q-footer>
+    <!--footer part done-->
   </div>
 
   <!--popup here-->
   <q-dialog v-model="addComponent">
-    <q-card class="h-[500px] w-[400px] ">
-      <div class="px-5 py-5">
-        <div class="text-gray-500 flex gap-2 text-lg">
-          <div>Fillup form</div>
-          <q-icon name="assignment" size="25px" color="gray-600" />
-        </div>
+    <q-card class="h-[500px] w-[400px]">
+      <div class="text-gray-500 flex gap-2 text-lg px-5 pt-5">
+        <div>Fillup form</div>
+        <q-icon name="assignment" size="25px" color="gray-600" />
+      </div>
 
-        <div class="border-2 my-3 text-blue px-2 py-2">
-          <q-input outlined v-model="text" label="components name" />
-          <div class="row gap-2">
-            <q-input class="col pt-3 " outlined v-model="text" label="PID" />
-            <q-input class="col pt-3" outlined v-model="text" label="Model " />
-            <q-icon class="cursor-pointer pt-5" name="delete" size="2em" color="red" />
-          </div>
+      <div
+        v-for="(form, index) in forms"
+        :key="index"
+        class="border-2 my-3 text-blue px-2 py-2"
+      >
+        <q-input outlined v-model="form.text" label="Component Name" />
+        <div class="row gap-2">
+          <q-input class="col pt-3" outlined v-model="form.pid" label="PID" />
+          <q-input
+            class="col pt-3"
+            outlined
+            v-model="form.model"
+            label="Model"
+          />
+          <q-icon
+            class="cursor-pointer mt-5 border rounded border-red-500"
+            name="delete"
+            size="2em"
+            color="red"
+            @click="deleteForm(index)"
+          />
         </div>
+      </div>
 
-        <div class="px-5 py-5 flex gap-5 row">
-          <q-btn class="col" unelevated color="primary" label="save " />
-          <q-btn class="col" unelevated color="primary" label="add more" />
-        </div>
+      <div class="px-5 py-5 flex gap-5 row">
+        <q-btn
+          class="col"
+          unelevated
+          color="primary"
+          label="Save"
+          @click="saveValues"
+        />
+        <q-btn
+          class="col"
+          unelevated
+          color="primary"
+          @click="addMore"
+          label="Add More"
+        />
       </div>
     </q-card>
   </q-dialog>
@@ -183,8 +242,39 @@ export default {
       text: ref(""),
       ph: ref(""),
       dense: ref(false),
-      addComponent: ref(false),
     };
+  },
+  data() {
+    return {
+      forms: [], // Initial form section
+      addComponent: ref(false),
+      textS: '',
+      showInput: false,
+
+    };
+  },
+  methods: {
+    toggleDialog() {
+      this.addComponent = !this.addComponent;
+    },
+    addMore(index) {
+      // Clone the form section and add it to the array
+      this.forms.splice(index + 1, 0, { text: "", pid: "", model: "" });
+    },
+    deleteForm(index) {
+      // Remove the form section at the specified index
+      this.forms.splice(index, 1);
+    },
+    saveValues() {
+      this.forms.push({
+        value: this.text,
+        isComplete: false,
+      });
+      this.text = null;
+
+      // Close the dialog after saving
+      this.addComponent = false;
+    },
   },
 };
 </script>
