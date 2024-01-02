@@ -1,5 +1,15 @@
 <template>
   <div>
+    <div class="text-center py-5 px-5">
+      <q-input
+        v-model="searchQuery"
+        label="Search Work Order"
+        outlined
+        dense
+        @input="performSearch"
+      />
+    </div>
+
     <table class="min-w-full bg-white border border-gray-300">
       <thead>
         <tr>
@@ -10,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in tableData" :key="index">
+        <tr v-for="(row, index) in filteredTableData" :key="index">
           <td class="py-2 px-4 border-b">{{ row.workorder }}</td>
           <td class="py-2 px-4 border-b">{{ row.type }}</td>
           <td class="py-2 px-4 border-b">{{ row.report }}</td>
@@ -152,7 +162,15 @@ export default {
       editedRowIndex: null,
       editedRowData: {},
       newRowData: {},
+      searchQuery: "",
     };
+  },
+  computed: {
+    filteredTableData() {
+      return this.tableData.filter(row =>
+        row.workorder.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
   },
   methods: {
     editRow(index) {
@@ -186,6 +204,9 @@ export default {
     cancelAdd() {
       this.isAddMode = false;
       this.newRowData = {};
+    },
+    performSearch() {
+      // Triggered when the search input changes, you can add more logic if needed
     },
   },
 };
