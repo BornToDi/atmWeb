@@ -18,9 +18,9 @@
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn size="25px" outline round color="blue-600" icon="card_giftcard" />
+      <q-btn to="workorder" size="25px" outline round color="blue-600" icon="card_giftcard" />
       <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Hardware Components
+        Work order
       </div>
     </div>
     <div
