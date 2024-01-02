@@ -9,6 +9,7 @@ const routes = [
       { path: "/hardware", component: () => import("pages/hardWare.vue") },
       { path: "/workorder", component: () => import("pages/workOrder.vue") },
       { path: "/shipment", component: () => import("pages/shipmentPage.vue") },
+      { path: "/user", component: () => import("pages/userPage.vue") },
     ],
   },
 
