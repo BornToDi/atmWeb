@@ -15,7 +15,7 @@
 
         <div class="mr-20">
   <q-btn to="dashboard" flat round color="white" icon="home" />
-  <q-btn to="login" flat round color="white" icon="exit_to_app" />
+  <q-btn @click="logout" flat round color="white" icon="exit_to_app" />
 </div>
 
       </q-toolbar>
@@ -65,31 +65,43 @@ const linksList = [
     title: "Dashboard",
 
     icon: "dashboard",
-    link: "http://localhost:9001/dashboard#/dashboard",
+    link: "https://quasar.dev",
   },
   {
     title: "Hardware Components",
 
     icon: "card_giftcard",
-    link: "http://localhost:9001/dashboard#/hardware",
+    link: "https://github.com/quasarframework",
   },
   {
     title: "Work Orders",
 
     icon: "work",
-    link: "http://localhost:9001/dashboard#/workorder",
+    link: "https://chat.quasar.dev",
   },
   {
     title: "Shipments",
 
     icon: "plane",
-    link: "http://localhost:9001/dashboard#/shipment",
+    link: "https://forum.quasar.dev",
   },
   {
     title: "Reports",
-
     icon: "note",
     link: "https://twitter.quasar.dev",
+    children: [
+      {
+        title: "Report 1",
+        icon: "subreport_icon",
+        link: "https://twitter.quasar.dev/report1",
+      },
+      {
+        title: "Report 2",
+        icon: "subreport_icon",
+        link: "https://twitter.quasar.dev/report2",
+      },
+      // Add more reports as needed
+    ]
   },
   {
     title: "ATMs",
@@ -101,7 +113,7 @@ const linksList = [
     title: "Users",
 
     icon: "people",
-    link: "http://localhost:9001/#/user",
+    link: "https://awesome.quasar.dev",
   },
   {
     title: "Activity Log",
