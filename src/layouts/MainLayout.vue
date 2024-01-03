@@ -11,25 +11,32 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          ATM Tester
-        </q-toolbar-title>
+        <q-toolbar-title> ATM Tester </q-toolbar-title>
 
-        <div class="mr-20"> <q-btn to="dashboard" flat round color="white" icon="home" /></div>
+        <div class="mr-20">
+  <q-btn to="dashboard" flat round color="white" icon="home" />
+  <q-btn to="login" flat round color="white" icon="exit_to_app" />
+</div>
+
       </q-toolbar>
     </q-header>
 
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
+        <q-item-label header>
+          <q-img
+            class="absolute-top"
+            src="https://cdn.quasar.dev/img/material.png"
+            style="height: 150px"
+          >
+            <div class="absolute-bottom bg-transparent">
+              <q-avatar size="56px" class="q-mb-sm">
+                <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+              </q-avatar>
+              <div class="text-weight-bold">User Admin</div>
+              <div>admin</div>
+            </div>
+          </q-img>
         </q-item-label>
 
         <EssentialLink
@@ -47,71 +54,80 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { defineComponent, ref } from "vue";
+import EssentialLink from "components/EssentialLink.vue";
 
 const linksList = [
+  {},
+  {},
+  {},
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: "Dashboard",
+
+    icon: "dashboard",
+    link: "http://localhost:9001/dashboard#/dashboard",
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: "Hardware Components",
+
+    icon: "card_giftcard",
+    link: "http://localhost:9001/dashboard#/hardware",
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: "Work Orders",
+
+    icon: "work",
+    link: "http://localhost:9001/dashboard#/workorder",
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
+    title: "Shipments",
+
+    icon: "plane",
+    link: "http://localhost:9001/dashboard#/shipment",
   },
   {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
+    title: "Reports",
+
+    icon: "note",
+    link: "https://twitter.quasar.dev",
   },
   {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
+    title: "ATMs",
+
+    icon: "atm",
+    link: "https://facebook.quasar.dev",
   },
   {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+    title: "Users",
+
+    icon: "people",
+    link: "http://localhost:9001/#/user",
+  },
+  {
+    title: "Activity Log",
+
+    icon: "note",
+    link: "https://awesome.quasar.dev",
+  },
+];
 
 export default defineComponent({
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const leftDrawerOpen = ref(false);
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
+  },
+});
 </script>

@@ -40,16 +40,16 @@
             >
               {{ row[column.key] }}
             </td>
-            <td class="py-2 px-4 border-b">
+            <td class="py-2 px-4 border-b ">
               <q-icon
                 @click="editRow(rowIndex)"
                 name="edit"
-                class="cursor-pointer text-primary"
+                class="cursor-pointer text-primary px-[2px] text-lg"
               />
               <q-icon
                 @click="deleteRow(rowIndex)"
                 name="delete"
-                class="cursor-pointer text-negative"
+                class="cursor-pointer text-negative px-[2px] text-lg"
               />
             </td>
           </tr>
@@ -83,7 +83,7 @@
 
     <!-- Add button -->
     <div class="text-center py-5 px-5">
-      <q-btn @click="addRow" outline rounded color="primary" label="Add Row" />
+      <q-btn @click="addRow" outline rounded color="primary" label="Add User" />
     </div>
   </div>
 </template>

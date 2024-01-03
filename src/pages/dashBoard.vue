@@ -18,50 +18,52 @@
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn to="workorder" size="25px" outline round color="blue-600" icon="card_giftcard" />
-      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Work order
-      </div>
+      <q-btn
+        to="workorder"
+        size="25px"
+        outline
+        round
+        color="blue-600"
+        icon="work"
+      />
+      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">Work order</div>
     </div>
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn size="25px" outline round color="blue-600" icon="card_giftcard" />
-      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Hardware Components
-      </div>
+      <q-btn size="25px" outline round color="blue-600" icon="plane" />
+      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">Shipments</div>
     </div>
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn size="25px" outline round color="blue-600" icon="card_giftcard" />
-      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Hardware Components
-      </div>
+      <q-btn size="25px" outline round color="blue-600" icon="note" />
+      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">Reports</div>
     </div>
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn size="25px" outline round color="blue-600" icon="card_giftcard" />
-      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Hardware Components
-      </div>
+      <q-btn size="25px" outline round color="blue-600" icon="atm" />
+      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">ATMs</div>
     </div>
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn size="25px" outline round color="blue-600" icon="card_giftcard" />
-      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Hardware Components
-      </div>
+      <q-btn size="25px" outline round color="blue-600" icon="people" />
+      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">Users</div>
     </div>
     <div
       class="flex flex-row px-5 border border-blue-600 bg-gray-50 shadow-lg shadow-blue-300 rounded-lg"
     >
-      <q-btn size="25px" outline round color="blue-600" icon="card_giftcard" />
-      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">
-        Hardware Components
-      </div>
+      <q-btn
+        size="25px"
+        outline
+        round
+        color="blue-600"
+        icon="note"
+      />
+
+      <div class="text-lg text-bold text-blue-600 pt-5 pl-5">Activity Log</div>
     </div>
   </div>
 
