@@ -65,30 +65,30 @@ const linksList = [
     title: "Dashboard",
 
     icon: "dashboard",
-    link: "https://quasar.dev",
+    link: "http://localhost:9001/#/dashboard",
   },
   {
     title: "Hardware Components",
 
     icon: "card_giftcard",
-    link: "https://github.com/quasarframework",
+    link: "http://localhost:9001/#/hardware",
   },
   {
     title: "Work Orders",
 
     icon: "work",
-    link: "https://chat.quasar.dev",
+    link: "http://localhost:9001/#/workorder",
   },
   {
     title: "Shipments",
 
     icon: "plane",
-    link: "https://forum.quasar.dev",
+    link: "http://localhost:9001/#/shipment",
   },
   {
     title: "Reports",
     icon: "note",
-    link: "https://twitter.quasar.dev",
+    link: "http://localhost:9001/#/report",
     children: [
       {
         title: "Report 1",
@@ -107,19 +107,19 @@ const linksList = [
     title: "ATMs",
 
     icon: "atm",
-    link: "https://facebook.quasar.dev",
+    link: "http://localhost:9001/#/atm",
   },
   {
     title: "Users",
 
     icon: "people",
-    link: "https://awesome.quasar.dev",
+    link: "http://localhost:9001/#/user",
   },
   {
     title: "Activity Log",
 
     icon: "note",
-    link: "https://awesome.quasar.dev",
+    link: "http://localhost:9001/#/activity",
   },
 ];
 

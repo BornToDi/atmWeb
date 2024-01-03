@@ -1,290 +1,189 @@
-<!-- src/views/YourPage.vue -->
 <template>
-  <div class="h-screen bg-gray-100">
-    <div class="mx-5 py-5">
-      <div class="flex gap-1">
-        <q-icon name="home" color="blue-600" size="32px" />
-        <h4 class="text-[20px] text-bold text-blue-600">Hardware Components</h4>
-      </div>
-      <div class="bg-white border-2 rounded-lg border-blue-600 px-3 py-3">
-        <div class="row">
-          <div class="col-4 text-lg text-bold pt-3 flex">
-            <q-icon name="list" color="blue-600" size="25px"></q-icon>
-            <div >list</div>
-          </div>
-          <div class="col-8 text-lg text-bold ">
-            <div class="flex">
-              <q-input
-                v-if="showInput"
-                height="2px"
-                outlined
-                v-model="textS"
-                label="Label"
-                counter
-                maxlength="12"
-                :dense="dense"
-                class="thin-input"
-              >
-                <template v-slot:append>
-                  <q-icon
-                    v-if="text !== ''"
-                    name="close"
-                    @click="text = ''"
-                    class="cursor-pointer"
-                  />
-                </template>
-
-                <template v-slot:hint> Field hint </template>
-              </q-input>
-              <q-icon
-                name="search"
-                size="25px"
-                class="cursor-pointer pt-3 "
-                @click="showInput = true"
-              />
-
-
-            </div>
-          </div>
-        </div>
-
-        <!--table part-->
-
-        <table class="table-fixed w-full pt-5">
-          <thead>
-            <tr>
-              <th class="w-1/6 px-3 py-2">Pid</th>
-              <th class="w-4/6 px-3 py-2">Name</th>
-              <th class="w-1/6 px-3 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Loop through your forms array to populate the table rows -->
-            <tr v-for="(form, index) in forms" :key="index">
-              <td class="border px-3 py-2">{{ form.pid }}</td>
-              <td class="border px-3 py-2">{{ form.text }}</td>
-              <td class="border px-3 py-2">
-                <q-icon
-                  class="cursor-pointer border rounded border-red-500"
-                  name="delete"
-                  size="2em"
-                  color="red"
-                  @click="deleteForm(index)"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!--table part finish-->
-        <div class="text-center">
-          <q-btn
-            @click="addComponent = true"
-            outline
-            rounded
-            color="primary"
-            label="Add Components"
-          />
-        </div>
-      </div>
+  <div>
+    <div class="text-center py-5 px-5">
+      <q-input
+        v-model="searchQuery"
+        label="Search Work Order"
+        outlined
+        dense
+        @input="performSearch"
+      />
     </div>
-    <!--footer part-->
-    <q-footer elevated>
-      <div class="container bg-violet-400 pt-9 border">
-        <div class="mb-9 flex justify-center">
-          <a href="#!" class="mr-9 text-neutral-800 dark:text-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
-              />
-            </svg>
-          </a>
-          <a href="#!" class="mr-9 text-neutral-800 dark:text-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
-              />
-            </svg>
-          </a>
-          <a href="#!" class="mr-9 text-neutral-800 dark:text-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M7 11v2.4h3.97c-.16 1.029-1.2 3.02-3.97 3.02-2.39 0-4.34-1.979-4.34-4.42 0-2.44 1.95-4.42 4.34-4.42 1.36 0 2.27.58 2.79 1.08l1.9-1.83c-1.22-1.14-2.8-1.83-4.69-1.83-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.721-2.84 6.721-6.84 0-.46-.051-.81-.111-1.16h-6.61zm0 0 17 2h-3v3h-2v-3h-3v-2h3v-3h2v3h3v2z"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </a>
-          <a href="#!" class="mr-9 text-neutral-800 dark:text-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-              />
-            </svg>
-          </a>
-          <a href="#!" class="mr-9 text-neutral-800 dark:text-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
-              />
-            </svg>
-          </a>
-          <a href="#!" class="text-neutral-800 dark:text-neutral-200">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
 
-      <!--Copyright section-->
-      <div
-        class="w-full bg-neutral-300 p-4 text-center text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200"
-      >
-        © 2023 Copyright:
-        <a
-          class="text-neutral-800 dark:text-neutral-400"
-          href="https://tw-elements.com/"
-          >TW elements</a
-        >
-      </div>
-    </q-footer>
-    <!--footer part done-->
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b">PID</th>
+          <th class="py-2 px-4 border-b">Component name</th>
+          <th class="py-2 px-4 border-b">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(row, index) in filteredTableData" :key="index">
+          <td class="py-2 px-4 border-b">{{ row.workorder }}</td>
+          <td class="py-2 px-4 border-b">{{ row.type }}</td>
+          <td class="py-2 px-4 border-b">
+            <q-icon
+              @click="editRow(index)"
+              name="edit"
+              class="cursor-pointer text-primary px-[2px] text-lg"
+            />
+            <q-icon
+              @click="deleteRow(index)"
+              name="delete"
+              class="cursor-pointer text-negative px-[2px] text-lg"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-center py-5 px-5">
+      <q-btn @click="addRow" outline rounded color="primary" label="Add work order" />
+    </div>
+
+    <!-- Edit dialog -->
+    <q-dialog v-model="isEditMode">
+      <q-card class="w-[500px]">
+        <q-card-section>
+          <form @submit.prevent="saveEdit">
+            <label
+              for="editPid"
+              class="block text-sm font-medium text-gray-700"
+              >PID:</label
+            >
+            <q-input
+              v-model="editedRowData.workorder"
+              id="editPid"
+              class="mt-1 p-2 block w-full border rounded-md"
+            />
+
+            <label
+              for="editComponent"
+              class="block text-sm font-medium text-gray-700"
+              >Component name:</label
+            >
+            <q-input
+              v-model="editedRowData.type"
+              id="editComponent"
+              class="mt-1 p-2 block w-full border rounded-md"
+            />
+
+            <div class="mt-4 flex justify-end">
+              <q-btn type="submit" color="primary" label="Save" />
+              <q-btn @click="cancelEdit" flat color="primary" label="Cancel" />
+            </div>
+          </form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+    <!-- Add dialog -->
+    <q-dialog v-model="isAddMode">
+      <q-card class="w-[500px]">
+        <q-card-section>
+          <form @submit.prevent="saveAdd">
+            <label
+              for="addPid"
+              class="block text-sm font-medium text-gray-700"
+              >PID:</label
+            >
+            <q-input
+              v-model="newRowData.workorder"
+              id="addPid"
+              class="mt-1 p-2 block w-full border rounded-md"
+            />
+
+            <label for="addComponent" class="block text-sm font-medium text-gray-700"
+              >Component name:</label
+            >
+            <q-input
+              v-model="newRowData.type"
+              id="addComponent"
+              class="mt-1 p-2 block w-full border rounded-md"
+            />
+
+            <div class="mt-4 flex justify-end">
+              <q-btn type="submit" color="primary" label="Save" />
+              <q-btn @click="cancelAdd" flat color="primary" label="Cancel" />
+            </div>
+          </form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
-
-  <!--popup here-->
-  <q-dialog v-model="addComponent">
-    <q-card class="h-[500px] w-[400px]">
-      <div class="text-gray-500 flex gap-2 text-lg px-5 pt-5">
-        <div>Fillup form</div>
-        <q-icon name="assignment" size="25px" color="gray-600" />
-      </div>
-
-      <div
-        v-for="(form, index) in forms"
-        :key="index"
-        class="border-2 my-3 text-blue px-2 py-2"
-      >
-        <q-input outlined v-model="form.text" label="Component Name" />
-        <div class="row gap-2">
-          <q-input class="col pt-3" outlined v-model="form.pid" label="PID" />
-          <q-input
-            class="col pt-3"
-            outlined
-            v-model="form.model"
-            label="Model"
-          />
-          <q-icon
-            class="cursor-pointer mt-5 border rounded border-red-500"
-            name="delete"
-            size="2em"
-            color="red"
-            @click="deleteForm(index)"
-          />
-        </div>
-      </div>
-
-      <div class="px-5 py-5 flex gap-5 row">
-        <q-btn
-          class="col"
-          unelevated
-          color="primary"
-          label="Save"
-          @click="saveValues"
-        />
-        <q-btn
-          class="col"
-          unelevated
-          color="primary"
-          @click="addMore"
-          label="Add More"
-        />
-      </div>
-    </q-card>
-  </q-dialog>
 </template>
 
 <script>
-import { ref } from "vue";
-
 export default {
-  setup() {
-    return {
-      text: ref(""),
-      ph: ref(""),
-      dense: ref(false),
-    };
-  },
   data() {
     return {
-      forms: [], // Initial form section
-      addComponent: ref(false),
-      textS: '',
-      showInput: false,
-
+      tableData: [
+        {
+          workorder: "123",
+          type: "Maintenance",
+        },
+        {
+          workorder: "456",
+          type: "Repair",
+        },
+        // Add more rows as needed
+      ],
+      isEditMode: false,
+      isAddMode: false,
+      editedRowIndex: null,
+      editedRowData: {},
+      newRowData: {},
+      searchQuery: "",
     };
   },
+  computed: {
+    filteredTableData() {
+      return this.tableData.filter(row =>
+        row.workorder.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
+  },
   methods: {
-    toggleDialog() {
-      this.addComponent = !this.addComponent;
+    editRow(index) {
+      this.isEditMode = true;
+      this.editedRowIndex = index;
+      this.editedRowData = { ...this.tableData[index] };
     },
-    addMore(index) {
-      // Clone the form section and add it to the array
-      this.forms.splice(index + 1, 0, { text: "", pid: "", model: "" });
+    deleteRow(index) {
+      this.tableData.splice(index, 1);
     },
-    deleteForm(index) {
-      // Remove the form section at the specified index
-      this.forms.splice(index, 1);
+    saveEdit() {
+      this.tableData[this.editedRowIndex] = { ...this.editedRowData };
+      this.isEditMode = false;
+      this.editedRowIndex = null;
+      this.editedRowData = {};
     },
-    saveValues() {
-      this.forms.push({
-        value: this.text,
-        isComplete: false,
-      });
-      this.text = null;
-
-      // Close the dialog after saving
-      this.addComponent = false;
+    cancelEdit() {
+      this.isEditMode = false;
+      this.editedRowIndex = null;
+      this.editedRowData = {};
+    },
+    addRow() {
+      this.isAddMode = true;
+      this.newRowData = { workorder: "", type: "" };
+    },
+    saveAdd() {
+      if (this.newRowData.workorder && this.newRowData.type) {
+        this.tableData.push({ ...this.newRowData });
+        this.isAddMode = false;
+        this.newRowData = {};
+      } else {
+        // Display an error message or handle the case when required fields are not filled.
+      }
+    },
+    cancelAdd() {
+      this.isAddMode = false;
+      this.newRowData = {};
+    },
+    performSearch() {
+      // Triggered when the search input changes, you can add more logic if needed
     },
   },
 };
 </script>
-
-<style scoped>
-/* Add custom styling for the thin input */
-.thin-input {
-  padding-top: 1px; /* Adjust the padding as needed */
-   /* Adjust the padding as needed */
-}
-</style>
