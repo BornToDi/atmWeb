@@ -14,10 +14,9 @@
         <q-toolbar-title> ATM Tester </q-toolbar-title>
 
         <div class="mr-20">
-  <q-btn to="dashboard" flat round color="white" icon="home" />
-  <q-btn @click="logout" flat round color="white" icon="exit_to_app" />
-</div>
-
+          <q-btn to="dashboard" flat round color="white" icon="home" />
+          <q-btn @click="logout" flat round color="white" icon="exit_to_app" />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -39,11 +38,58 @@
           </q-img>
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <div class="pt-32">
+          <q-item clickable @click="$router.push('/dashboard')">
+            <q-item-section> Dashboard </q-item-section>
+            <q-item-section avatar>
+              <q-icon name="dashboard" />
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable @click="$router.push('/workorder')">
+            <q-item-section> Workorder </q-item-section>
+            <q-item-section avatar>
+              <!-- Add the icon for workorder here -->
+              <q-icon name="note" />
+            </q-item-section>
+          </q-item>
+
+          <q-item clickable @click="$router.push('/shipments')">
+            <q-item-section> Shipments </q-item-section>
+            <q-item-section avatar>
+              <!-- Add the icon for workorder here -->
+              <q-icon name="plane" />
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="$router.push('/reports')">
+            <q-item-section> Reports </q-item-section>
+            <q-item-section avatar>
+              <!-- Add the icon for workorder here -->
+              <q-icon name="note" />
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="$router.push('/atm')">
+            <q-item-section> ATMs </q-item-section>
+            <q-item-section avatar>
+              <!-- Add the icon for workorder here -->
+              <q-icon name="atm" />
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="$router.push('/user')">
+            <q-item-section> Users </q-item-section>
+            <q-item-section avatar>
+              <!-- Add the icon for workorder here -->
+              <q-icon name="people" />
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="$router.push('/activity')">
+            <q-item-section> Activity Log </q-item-section>
+            <q-item-section avatar>
+              <!-- Add the icon for workorder here -->
+              <q-icon name="note" />
+            </q-item-section>
+          </q-item>
+        </div>
       </q-list>
     </q-drawer>
 
@@ -55,86 +101,14 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import EssentialLink from "components/EssentialLink.vue";
-
-const linksList = [
-  {},
-  {},
-  {},
-  {
-    title: "Dashboard",
-
-    icon: "dashboard",
-    link: "http://localhost:9001/#/dashboard",
-  },
-  {
-    title: "Hardware Components",
-
-    icon: "card_giftcard",
-    link: "http://localhost:9001/#/hardware",
-  },
-  {
-    title: "Work Orders",
-
-    icon: "work",
-    link: "http://localhost:9001/#/workorder",
-  },
-  {
-    title: "Shipments",
-
-    icon: "plane",
-    link: "http://localhost:9001/#/shipment",
-  },
-  {
-    title: "Reports",
-    icon: "note",
-    link: "http://localhost:9001/#/report",
-    children: [
-      {
-        title: "Report 1",
-        icon: "subreport_icon",
-        link: "https://twitter.quasar.dev/report1",
-      },
-      {
-        title: "Report 2",
-        icon: "subreport_icon",
-        link: "https://twitter.quasar.dev/report2",
-      },
-      // Add more reports as needed
-    ]
-  },
-  {
-    title: "ATMs",
-
-    icon: "atm",
-    link: "http://localhost:9001/#/atm",
-  },
-  {
-    title: "Users",
-
-    icon: "people",
-    link: "http://localhost:9001/#/user",
-  },
-  {
-    title: "Activity Log",
-
-    icon: "note",
-    link: "http://localhost:9001/#/activity",
-  },
-];
 
 export default defineComponent({
   name: "MainLayout",
-
-  components: {
-    EssentialLink,
-  },
 
   setup() {
     const leftDrawerOpen = ref(false);
 
     return {
-      essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

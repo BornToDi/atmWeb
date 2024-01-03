@@ -28,12 +28,12 @@
             <q-icon
               @click="editRow(index)"
               name="edit"
-              class="cursor-pointer text-primary"
+              class="cursor-pointer text-primary text-lg px-[2px]"
             />
             <q-icon
               @click="deleteRow(index)"
               name="delete"
-              class="cursor-pointer text-negative"
+              class="cursor-pointer text-negative text-lg px-[2px]"
             />
           </td>
         </tr>

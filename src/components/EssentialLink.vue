@@ -1,49 +1,38 @@
+<!-- EssentialLink.vue -->
 <template>
-  <q-item
-    clickable
-    tag="a"
-    target="_blank"
-    :href="link"
-  >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
-      <q-icon :name="icon" />
-    </q-item-section>
-
+  <q-item clickable @click="navigateLink">
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+    </q-item-section>
+    <q-item-section side top>
+      <q-icon :name="icon" />
     </q-item-section>
   </q-item>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { useRoute } from 'vue-router';
 
-export default defineComponent({
-  name: 'EssentialLink',
+export default {
   props: {
-    title: {
-      type: String,
-      required: true
-    },
+    title: String,
+    icon: String,
+    link: String,
+    to: String, // New prop for Vue Router
+    children: Array,
+  },
+  setup() {
+    const route = useRoute();
 
-    caption: {
-      type: String,
-      default: ''
-    },
+    const navigateLink = () => {
+      if (this.to) {
+        route.push(this.to);
+      } else if (this.link) {
+        window.location.href = this.link;
+      }
+    };
 
-    link: {
-      type: String,
-      default: '#'
-    },
-
-    icon: {
-      type: String,
-      default: ''
-    }
-  }
-})
+    return { navigateLink };
+  },
+};
 </script>
